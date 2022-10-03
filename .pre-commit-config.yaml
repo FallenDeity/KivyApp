@@ -20,8 +20,6 @@ repos:
     hooks:
       - id: isort
         name: isort
-        pass_filenames: false
-        files: app
         entry: poetry run isort .
         language: python
         stages:
@@ -31,8 +29,6 @@ repos:
     hooks:
       - id: black
         name: black
-        pass_filenames: false
-        files: app
         entry: poetry run black .
         language: python
         stages:
@@ -42,8 +38,6 @@ repos:
     hooks:
       - id: mypy
         name: mypy
-        pass_filenames: false
-        files: app
         entry: poetry run mypy .
         language: python
         stages:
