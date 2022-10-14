@@ -1,3 +1,10 @@
+![](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)
+![](https://img.shields.io/badge/%20type_checker-mypy-%231674b1?style=flat-square)
+![](https://img.shields.io/github/license/FallenDeity/KivyApp?style=flat-square)
+![](https://img.shields.io/github/stars/FallenDeity/KivyApp?style=flat-square)
+![](https://img.shields.io/github/last-commit/FallenDeity/KivyApp?style=flat-square)
+
+
 This is a simple application that uses kivy and python to create a multi-platform GUI application.
 # The app is divided into two parts:
 1. The GUI
