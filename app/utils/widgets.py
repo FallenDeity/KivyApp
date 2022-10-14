@@ -2,18 +2,22 @@ from typing import TYPE_CHECKING, Any, Callable
 
 from kivy.core.window import Window
 from kivy.factory import Factory
+from kivy.garden.matplotlib import FigureCanvasKivyAgg
 from kivy.properties import BooleanProperty, ListProperty, NumericProperty, ObjectProperty
 from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 from kivymd.uix.behaviors import RoundedRectangularElevationBehavior
 from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.button import MDFillRoundFlatIconButton, MDRectangleFlatIconButton, MDRoundFlatButton, MDFloatingActionButton
+from kivymd.uix.button import (
+    MDFillRoundFlatIconButton,
+    MDFloatingActionButton,
+    MDRectangleFlatIconButton,
+    MDRoundFlatButton,
+)
 from kivymd.uix.card import MDCard
 from kivymd.uix.fitimage import FitImage
 from kivymd.uix.label import MDIcon, MDLabel
 from kivymd.uix.swiper import MDSwiperItem
-from kivy.garden.matplotlib import FigureCanvasKivyAgg
-
 
 if TYPE_CHECKING:
     from app import AgroIndia

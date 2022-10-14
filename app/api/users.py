@@ -18,8 +18,8 @@ class Members:
         return User(**response.json())
 
     def get_message(self, phone: int) -> list[str]:
-        response = self.client.get(f"{self.base_url}/get_messages", params={"phone_number": phone})
-        return response.json()["messages"]
+        response: list[str] = self.client.get(f"{self.base_url}/get_messages", params={"phone_number": phone}).json()["messages"]
+        return response
 
     def seen_message(self, phone: int) -> bool:
         response = self.client.get(f"{self.base_url}/seen_message", params={"phone_number": phone})

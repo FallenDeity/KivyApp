@@ -22,7 +22,7 @@ from matplotlib import pyplot as plt
 
 from app.api import Plant, Prices
 from app.api import Production as ProductionModel
-from app.utils import CROPS, MARKETS, STATES, HoverButton, HoverRectangle, Report, Plot
+from app.utils import CROPS, MARKETS, STATES, HoverButton, HoverRectangle, Plot, Report
 
 if TYPE_CHECKING:
     from app import AgroIndia
@@ -350,9 +350,7 @@ class Encyclopedia(Screen):
         card.add_widget(MDLabel(text=self.plant.common_name, halign="center", font_style="H5"))
         card.add_widget(MDLabel(text=self.plant.scientific_name, halign="center", font_style="H6"))
         card.add_widget(
-            AsyncImage(
-                source=self.plant.image, size_hint=(None, None), size=(100, 100), pos_hint={"top": 1}
-            )
+            AsyncImage(source=self.plant.image, size_hint=(None, None), size=(100, 100), pos_hint={"top": 1})
         )
         step = f"{self.plant.rank} {self.plant.family}, {self.plant.genus}"
         card.add_widget(MDLabel(text=step, halign="center", font_style="Subtitle1"))
