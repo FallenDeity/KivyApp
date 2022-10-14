@@ -1,0 +1,146 @@
+#:import SliverToolbar app.gui.SliverToolbar
+
+
+<Price>:
+    name: "Price"
+
+    on_pre_enter:
+        root.prepare(app)
+        root.get_crops()
+
+    MDSliverAppbar:
+        id: toolbar
+        toolbar_bg: app.theme_cls.primary_color
+        toolbar_cls: SliverToolbar("Prices", app)
+        hide_toolbar: True
+
+        MDSliverAppbarHeader:
+            md_bg_color: app.theme_cls.primary_color
+            spacing: "8dp"
+            padding: "8dp"
+
+        MDSliverAppbarContent:
+            padding: 10
+            spacing: 50
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: "vertical"
+            md_bg_color: (0,0,0,1) if app.theme_cls.theme_style == "Dark" else (255,255,255,1)
+
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: 10
+                spacing: 50
+                size_hint_y: None
+                adaptive_height: True
+                pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+                NewShadowWidget:
+                    id: search
+                    size_hint: None, None
+                    size: 350, 700
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
+                    elevation: 15
+                    shadow_radius: 10
+                    soft_shadow_cl: app.theme_cls.accent_color
+                    hard_shadow_cl: app.theme_cls.accent_color
+                    md_bg_color: app.theme_cls.accent_color
+                    radius: [30, 30, 30, 30]
+
+                    MDLabel:
+                        text: app.translate("Search")
+                        font_style: "H6"
+                        halign: "center"
+                        pos_hint: {'top':1}
+                        font_name: app.font_black
+
+                    MDTextField:
+                        id: _id
+                        text: ""
+                        hint_text: "ID (1-8478)"
+                        helper_text: "Enter the ID of the product"
+                        helper_text_mode: "on_focus"
+                        icon_right: "tree-outline"
+                        icon_right_color: app.theme_cls.primary_color
+                        mode: "rectangle"
+                        width: 250
+
+                    MDTextField:
+                        id: state
+                        hint_text: 'STATE'
+                        icon_right: "map-marker"
+                        mode: "rectangle"
+                        max_text_length: 20
+                        helper_text: 'Enter your state'
+                        helper_text_mode: "on_error"
+                        width: 250
+                        on_focus: if self.focus: root.state_menu.open()
+
+                    MDTextField:
+                        id: district
+                        hint_text: 'DISTRICT'
+                        icon_right: "map-marker"
+                        mode: "rectangle"
+                        max_text_length: 50
+                        helper_text: 'Enter your district'
+                        helper_text_mode: "on_focus"
+                        width: 250
+                        on_focus: if self.focus: root.district_menu.open()
+
+                    MDTextField:
+                        id: market
+                        hint_text: 'MARKET'
+                        icon_right: "shopping-outline"
+                        mode: "rectangle"
+                        max_text_length: 50
+                        helper_text: 'Enter your market'
+                        helper_text_mode: "on_focus"
+                        width: 250
+                        on_focus: if self.focus: root.markets.open()
+
+                    MDTextField:
+                        id: crop
+                        hint_text: 'COMMODITY'
+                        icon_right: "sprout-outline"
+                        mode: "rectangle"
+                        max_text_length: 50
+                        helper_text: 'Enter your commodity'
+                        helper_text_mode: "on_focus"
+                        width: 250
+                        on_focus: if self.focus: root.crops.open()
+
+                    MDTextField:
+                        id: initial
+                        hint_text: 'Initial Budget'
+                        icon_right: "currency-inr"
+                        mode: "rectangle"
+                        max_text_length: 50
+                        helper_text: 'Enter your initial budget'
+                        helper_text_mode: "on_focus"
+                        width: 250
+
+                    MDTextField:
+                        id: final
+                        hint_text: 'Final Budget'
+                        icon_right: "currency-inr"
+                        mode: "rectangle"
+                        max_text_length: 50
+                        helper_text: 'Enter your final budget'
+                        helper_text_mode: "on_focus"
+                        width: 250
+
+                    HoverButton:
+                        text: app.translate('Submit')
+                        font_size: 15
+                        halign: "center"
+                        pos_hint: {'center_x': .5}
+                        on_enter:
+                            self.md_bg_color = app.theme_cls.primary_color
+                            self.text_color = "#FFFFFF"
+                        on_leave:
+                            self.md_bg_color = app.theme_cls.accent_color
+                            self.text_color = app.theme_cls.primary_color
+                        bold: True
+                        on_release:
+                            root.run_thread(app)
+                        font_name: app.font_black

@@ -1,0 +1,132 @@
+
+
+<ShadowCard>:
+    elevation: 15
+    shadow_radius: 10
+    md_bg_color: app.theme_cls.primary_color
+    soft_shadow_cl: app.theme_cls.primary_color
+    hard_shadow_cl: app.theme_cls.primary_color
+    padding:dp(10)
+    spacing:dp(15)
+    ripple_behavior: True
+    image:''
+    text:""
+    items_count:""
+    subtext:''
+    orientation:'vertical'
+    Image:
+        source:root.image
+    MDBoxLayout:
+        orientation:'vertical'
+        MDLabel:
+            halign:"center"
+            text:root.text
+            font_style:"H6"
+            bold:True
+            font_name: app.font_black
+        MDLabel:
+            halign:"center"
+            font_style:"Caption"
+            text:root.subtext
+            font_name: app.font_regular
+
+
+<Home>:
+    MDBoxLayout:
+        orientation:'vertical'
+        md_bg_color:app.theme_cls.bg_dark
+        NewShadowWidget:
+            orientation:'horizontal'
+            size_hint: 1, 0.2
+            elevation: 15
+            shadow_radius: 10
+            md_bg_color: app.theme_cls.accent_color
+            soft_shadow_color: app.theme_cls.accent_color
+            hard_shadow_color: app.theme_cls.accent_color
+            radius:[0,0,dp(25),dp(25)]
+
+            MDLabel:
+                text: app.translate("AgroIndia")
+                font_style:"H3"
+                pos_hint:{"center_x":.5,"center_y":.5}
+                halign:"center"
+                valign:"middle"
+                bold:True
+                font_name: app.font_black
+
+            FitImage:
+                source: r'app/assets/icon.png'
+                size_hint: None, None
+
+
+        MDGridLayout:
+            size_hint_y:.75
+            size_hint_x:1
+            cols:2
+            padding:[dp(15),dp(15),dp(15),dp(35)]
+            spacing:dp(15)
+
+            ShadowCard:
+                size_hint_x: None
+                width: dp(150)
+                image:"app/assets/images/weather.png"
+                text: app.translate("Weather")
+                subtext: app.translate("Weather Reports")
+                on_release:
+                    root.manager.transition = WipeTransition()
+                    root.manager.current = "weather"
+
+            ShadowCard:
+                size_hint_x: None
+                width: dp(150)
+                image:"app/assets/images/production.png"
+                text: app.translate("Production")
+                subtext: app.translate("Production Reports")
+                on_release:
+                    root.manager.transition = WipeTransition()
+                    root.manager.current = "production"
+
+            ShadowCard:
+                size_hint_x: None
+                width: dp(150)
+                image:"app/assets/images/prices.png"
+                text: app.translate("Prices")
+                subtext: app.translate("Price Reports")
+                on_release:
+                    root.manager.transition = WipeTransition()
+                    root.manager.current = "prices"
+
+            ShadowCard:
+                size_hint_x: None
+                width: dp(150)
+                image:"app/assets/images/info.png"
+                text: app.translate("Info")
+                subtext: app.translate("Farming Info")
+                on_release:
+                    root.manager.transition = WipeTransition()
+                    root.manager.current = "info"
+
+            ShadowCard:
+                size_hint_x: None
+                width: dp(150)
+                image:"app/assets/images/lens.png"
+                text: app.translate("Identify")
+                subtext: app.translate("Identify Crop")
+                on_release:
+                    root.manager.transition = WipeTransition()
+                    root.manager.current = "lens"
+
+            ShadowCard:
+                size_hint_x: None
+                width: dp(150)
+                image:"app/assets/images/settings.png"
+                text:app.translate("Setting")
+                subtext:app.translate("Customize your app")
+                on_release:
+                    root.manager.transition = WipeTransition()
+                    root.manager.current = 'settings'
+
+        HoverIconButton:
+            id: message
+            icon: "message"
+            pos_hint: {"right": .9, "top": .1}

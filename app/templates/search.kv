@@ -1,0 +1,96 @@
+#:import SliverToolbar app.gui.SliverToolbar
+
+
+<Encyclopedia>:
+    name: "Encyclopedia"
+
+
+    MDSliverAppbar:
+        id: toolbar
+        toolbar_bg: app.theme_cls.primary_color
+        toolbar_cls: SliverToolbar("Encyclopedia", app)
+        hide_toolbar: True
+
+        MDSliverAppbarHeader:
+            md_bg_color: app.theme_cls.primary_color
+            spacing: "8dp"
+            padding: "8dp"
+
+        MDSliverAppbarContent:
+            padding: 10
+            spacing: 10
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: "vertical"
+            md_bg_color: (0,0,0,1) if app.theme_cls.theme_style == "Dark" else (255,255,255,1)
+
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: 10
+                spacing: 50
+                size_hint_y: None
+                adaptive_height: True
+                pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+                NewShadowWidget:
+                    id: info
+                    size_hint: None, None
+                    size: 350, 200
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
+                    elevation: 15
+                    shadow_radius: 10
+                    soft_shadow_cl: app.theme_cls.accent_color
+                    hard_shadow_cl: app.theme_cls.accent_color
+                    md_bg_color: app.theme_cls.accent_color
+                    radius: [30, 30, 30, 30]
+
+                    MDLabel:
+                        text: app.translate("Search")
+                        font_style: "H5"
+                        bold: True
+                        font_name: app.font_black
+
+                    MDTextField:
+                        id: search
+                        hint_text: "Search"
+                        icon_right: "magnify"
+                        icon_right_color: app.theme_cls.primary_color
+                        pos_hint: {'center_x':0.5, 'center_y':0.5}
+                        size_hint: None, None
+                        size: (300, 50)
+
+                    HoverButton:
+                        id: search_button
+                        text: app.translate("Search")
+                        font_name: app.font_regular
+                        pos_hint: {'center_x':0.5, 'center_y':0.5}
+                        on_release:
+                            root.search(app)
+
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: 10
+                spacing: 50
+                size_hint_y: None
+                adaptive_height: True
+                pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+                NewShadowWidget:
+                    id: results
+                    size_hint: None, None
+                    size: 350, 480
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
+                    elevation: 15
+                    shadow_radius: 10
+                    soft_shadow_cl: app.theme_cls.accent_color
+                    hard_shadow_cl: app.theme_cls.accent_color
+                    md_bg_color: app.theme_cls.accent_color
+                    radius: [30, 30, 30, 30]
+
+                    MDLabel:
+                        id: result
+                        text: app.translate("Results")
+                        pos_hint: {'top': 1, 'center_y':0.5}
+                        bold: True
+                        font_style: "H5"
+                        font_name: app.font_black

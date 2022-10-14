@@ -1,0 +1,261 @@
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+#:import SliverToolbar app.gui.SliverToolbar
+
+
+<SwitchLocation>:
+    orientation: "vertical"
+    size_hint_y: None
+    height: "180dp"
+    padding: "10dp"
+
+    MDTextField:
+        id: state
+        hint_text: "State"
+        helper_text: "Enter State"
+        helper_text_mode: "on_focus"
+        icon_right: "city"
+        icon_right_color: app.theme_cls.primary_color
+        pos_hint: {"center_x": .5, "center_y": .5}
+        size_hint_x: None
+        width: 300
+        on_focus: if self.focus: root.state_menu.open()
+
+    MDTextField:
+        id: district
+        hint_text: "District"
+        helper_text: "Enter District"
+        helper_text_mode: "on_focus"
+        icon_right: "city"
+        icon_right_color: app.theme_cls.primary_color
+        pos_hint: {"center_x": .5, "center_y": .5}
+        size_hint_x: None
+        width: 300
+        on_focus: if self.focus: root.district_menu.open()
+
+
+<SwitchPassword>:
+    orientation: "vertical"
+    size_hint_y: None
+    height: "250dp"
+    padding: "10dp"
+
+    MDTextField:
+        id: old_password
+        hint_text: "Old Password"
+        helper_text: "Enter your old password"
+        helper_text_mode: "on_focus"
+        icon_right_color: app.theme_cls.primary_color
+        mode: "rectangle"
+        min_text_length: 8
+        password: True
+        required: True
+
+    MDIconButton:
+        icon: "eye-off"
+        theme_text_color: "Hint"
+        pos: old_password.right - 48, old_password.center_y - 24
+        on_release:
+            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+            old_password.password = False if old_password.password is True else True
+
+    MDTextField:
+        id: new_password
+        hint_text: "New Password"
+        helper_text: "Enter your new password"
+        helper_text_mode: "on_focus"
+        icon_right_color: app.theme_cls.primary_color
+        mode: "rectangle"
+        min_text_length: 8
+        password: True
+        required: True
+
+    MDIconButton:
+        icon: "eye-off"
+        theme_text_color: "Hint"
+        pos: new_password.right - 48, new_password.center_y - 24
+        on_release:
+            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+            new_password.password = False if new_password.password is True else True
+
+
+<Settings>:
+    name: 'Settings'
+    on_pre_enter:
+        root.ids.username.text = f"{app.user.phone}"
+
+    MDSliverAppbar:
+        toolbar_bg: app.theme_cls.accent_color
+        toolbar_cls: SliverToolbar("Settings", app)
+        hide_toolbar: True
+
+        MDSliverAppbarHeader:
+            MDScreen:
+                md_bg_color: app.theme_cls.primary_color
+                MDBoxLayout:
+                    adaptive_height:True
+                    orientation: "vertical"
+                    pos_hint:{'center_x':.5,'center_y':.5}
+                    spacing:"20dp"
+                    MDBoxLayout:
+                        size_hint:None,None
+                        size:'85dp','85dp'
+                        pos_hint:{'center_x':.5,'center_y':.5}
+                        canvas:
+                            Color:
+                                rgba:app.theme_cls.primary_color
+                            Ellipse:
+                                size:self.size
+                                pos:self.pos
+                                source: "app/assets/images/account.jpeg"
+                    MDLabel:
+                        id: username
+                        text:'example@email.com'
+                        halign:"center"
+                        adaptive_height:True
+
+        MDSliverAppbarContent:
+            padding:'20dp'
+            spacing:'20dp'
+            id: content
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: "vertical"
+            md_bg_color: (0,0,0,1) if app.theme_cls.theme_style == "Dark" else (255,255,255,1)
+            MDLabel:
+                text:app.translate("App Settings")
+                adaptive_height:True
+                font_name: app.font_black
+            MDCard:
+                size_hint_y:None
+                height:"220dp"
+                orientation:"vertical"
+                radius:20
+                padding:"10dp"
+                md_bg_color: (0,0,0,1) if app.theme_cls.theme_style == "Dark" else (255,255,255,1)
+
+                TwoLineIconListItem:
+                    text: "About"
+                    secondary_text: "Version 1.0.0"
+                    on_release:
+                        app.show_about_dialog()
+                    IconLeftWidget:
+                        icon: "information-outline"
+
+                TwoLineIconListItem:
+                    id: theme
+                    text: "Theme Modes"
+                    secondary_text: f"Current: {app.theme_cls.theme_style}"
+                    on_release:
+                        app.generate_theme()
+                        root.ids.theme.secondary_text = f"Current: {app.theme_cls.theme_style}"
+                    IconLeftWidget:
+                        icon: "theme-light-dark"
+
+                TwoLineIconListItem:
+                    id: language
+                    text: "Language"
+                    secondary_text: f"Current: {app.lang}"
+                    divider: None
+                    on_release:
+                        root.set_lang(app)
+                    IconLeftWidget:
+                        icon: "translate"
+
+            MDLabel:
+                text:app.translate("Danger Zone")
+                font_name: app.font_black
+                adaptive_height:True
+            MDCard:
+                size_hint_y:None
+                height:"180dp"
+                orientation:"vertical"
+                radius:20
+                padding:"10dp"
+                md_bg_color: (0,0,0,1) if app.theme_cls.theme_style == "Dark" else (255,255,255,1)
+
+                TwoLineIconListItem:
+                    text: "Logout"
+                    secondary_text: "Logout from the app"
+                    on_release:
+                        root.manager.transition = SlideTransition(direction="right")
+                        root.manager.current = "login"
+                    IconLeftWidget:
+                        icon: "logout"
+
+                TwoLineIconListItem:
+                    text: "Delete Account"
+                    secondary_text: "Delete your account"
+                    on_release:
+                        root.delete_account(app)
+                    IconLeftWidget:
+                        icon: "delete"
+
+            MDLabel:
+                text:app.translate("User Settings")
+                font_name: app.font_black
+                adaptive_height:True
+            MDCard:
+                size_hint_y:None
+                height:"280dp"
+                orientation:"vertical"
+                radius:20
+                padding:"10dp"
+                md_bg_color: (0,0,0,1) if app.theme_cls.theme_style == "Dark" else (255,255,255,1)
+
+                TwoLineIconListItem:
+                    text: "Change Password"
+                    secondary_text: "Change your password"
+                    on_release:
+                        root.change_password(app)
+                    IconLeftWidget:
+                        icon: "lock"
+
+                TwoLineIconListItem:
+                    text: "Change Location"
+                    secondary_text: "Change your location"
+                    on_release:
+                        root.change_location(app)
+                    IconLeftWidget:
+                        icon: "map-marker"
+
+                TwoLineIconListItem:
+                    id: volume
+                    width: "100dp"
+                    text: "Set Volume"
+                    secondary_text: "Set your volume"
+                    divider: None
+                    IconLeftWidget:
+                        id: volume_icon
+                        icon: "volume-high"
+                        on_release:
+                            app.set_sound()
+                            root.ids.volume_icon.icon = "volume-high" if app.sound else "volume-off"
+
+                MDSlider:
+                    id: volume
+                    min: 0
+                    max: 100
+                    value: 50
+                    on_touch_up:
+                        app.set_volume(self.value)
+
+            MDLabel:
+                text:app.translate("Experience")
+                font_name: app.font_black
+                adaptive_height:True
+            MDCard:
+                size_hint_y:None
+                height:"60dp"
+                orientation:"vertical"
+                radius:20
+                padding:"10dp"
+                md_bg_color: (0,0,0,1) if app.theme_cls.theme_style == "Dark" else (255,255,255,1)
+                TwoLineAvatarIconListItem:
+                    id: experience
+                    text: "Rate Us"
+                    divider: None
+                    secondary_text: "Rate us based on your experience"
+                    on_release:
+                        root.rate_us()
+                    IconLeftWidget:
+                        icon: "star"

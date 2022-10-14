@@ -1,0 +1,94 @@
+#:import SliverToolbar app.gui.SliverToolbar
+
+
+<NewLocation>:
+    orientation: "vertical"
+    size_hint_y: None
+    height: 100
+    padding: 10
+    spacing: 10
+
+    MDTextField:
+        id: location
+        hint_text: "Location"
+        helper_text: "Enter Location"
+        helper_text_mode: "on_focus"
+        icon_right: "map-marker"
+        icon_right_color: app.theme_cls.primary_color
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        size_hint_x: None
+        width: 300
+
+
+<Weather>:
+    name: 'Weather'
+
+    on_pre_enter:
+        root.ids.locationbutton.text = root.location or f"{app.user.district}"
+        root.run_thread(app)
+
+    MDSliverAppbar:
+        id: toolbar
+        toolbar_bg: app.theme_cls.primary_color
+        toolbar_cls: SliverToolbar("Weather", app)
+        hide_toolbar: True
+
+        MDSliverAppbarHeader:
+            md_bg_color: app.theme_cls.primary_color
+
+        MDSliverAppbarContent:
+            padding: 40
+            spacing: 40
+            size_hint_y: None
+            adaptive_height: True
+            orientation: "vertical"
+            md_bg_color: (0,0,0,1) if app.theme_cls.theme_style == "Dark" else (255,255,255,1)
+
+            MDBoxLayout:
+                orientation: "horizontal"
+                padding: 20
+                spacing: 20
+                pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+                HoverRectangle:
+                    id: locationbutton
+                    icon: "map-marker"
+                    text: "Location"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release:
+                        root.set_new_location(app)
+                    md_bg_color: 34/255, 138/255, 240/255, 1
+                    text_color: 1, 1, 1, 1
+                    icon_color: 1, 1, 1, 1
+                    on_enter:
+                        self.md_bg_color = 255/255, 37/255, 106/255, 1
+                        self.text_color = 1, 1, 1, 1
+                    on_leave:
+                        self.md_bg_color = 34/255, 138/255, 240/255, 1
+                        self.text_color = 1, 1, 1, 1
+
+                HoverRectangle:
+                    id: datebutton
+                    icon: "calendar"
+                    text: "Date"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release:
+                        root.on_date()
+                    md_bg_color: 34/255, 138/255, 240/255, 1
+                    text_color: 1, 1, 1, 1
+                    icon_color: 1, 1, 1, 1
+                    on_enter:
+                        self.md_bg_color = 255/255, 37/255, 106/255, 1
+                        self.text_color = 1, 1, 1, 1
+                    on_leave:
+                        self.md_bg_color = 34/255, 138/255, 240/255, 1
+                        self.text_color = 1, 1, 1, 1
+
+            MDSwiper:
+                id: swiper
+                size_hint: 1, None
+                height: 500
+                pos_hint: {"center_x": .5, "center_y": .5}
+                width_mult: - (300 - root.width) / (20 * 3)
+                padding: 10
+                spacing: 10
